@@ -10,7 +10,7 @@ public interface IGiftBuisnessLogicContract
 
     List<GiftDataModel> GetAllGiftsByManufacturer(string manufacturerId, bool onlyActive = true);
 
-    List<GiftHistoryDataModel> GetGiftHistoryByProduct(string productId);
+    List<GiftHistoryDataModel> GetGiftHistoryByProduct(string giftId);
 
     GiftDataModel GetGiftByData(string data);
 
