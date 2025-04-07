@@ -11,6 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="TheBallTests"/>
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TheBallContracts\TheBallContracts\TheBallContracts.csproj" />
   </ItemGroup>
 
