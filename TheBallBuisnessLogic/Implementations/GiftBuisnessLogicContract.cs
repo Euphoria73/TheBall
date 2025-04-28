@@ -46,7 +46,7 @@ internal class GiftBuisnessLogicContract(IGiftStorageContract giftStorageContrac
         return _giftStorageContract.GetElementByName(data) ?? throw new ElementNotFoundException(data);
     }
 
-    public List<GiftHistoryDataModel> GetGiftHistoryByProduct(string giftId)
+    public List<GiftHistoryDataModel> GetGiftHistoryByGift(string giftId)
     {
         _logger.LogInformation("GetProductHistoryByProduct for {productId}", giftId);
         if (giftId.IsEmpty())
