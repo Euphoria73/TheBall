@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheBallContracts", "TheBall
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheBallTests", "..\TheBallTests\TheBallTests.csproj", "{F1E0636C-ECEA-4325-B064-2548BF56840D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBallBuisnessLogic", "..\TheBallBuisnessLogic\TheBallBuisnessLogic.csproj", "{6D30BF33-0781-456A-93D6-572EE829581C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheBallBuisnessLogic", "..\TheBallBuisnessLogic\TheBallBuisnessLogic.csproj", "{6D30BF33-0781-456A-93D6-572EE829581C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBallDatabase", "TheBallDatabase\TheBallDatabase.csproj", "{06B1694E-445E-4D15-B524-E63BE17B21C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{6D30BF33-0781-456A-93D6-572EE829581C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D30BF33-0781-456A-93D6-572EE829581C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D30BF33-0781-456A-93D6-572EE829581C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06B1694E-445E-4D15-B524-E63BE17B21C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06B1694E-445E-4D15-B524-E63BE17B21C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06B1694E-445E-4D15-B524-E63BE17B21C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06B1694E-445E-4D15-B524-E63BE17B21C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
