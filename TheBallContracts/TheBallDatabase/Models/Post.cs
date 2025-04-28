@@ -5,7 +5,7 @@ namespace TheBallDatabase.Models;
 
 internal class Post
 {
-    public required string Id { get; set; }
+    public required string Id { get; set; } = Guid.NewGuid().ToString();
     public required string PostId { get; set; }
     public required string Name { get; set; }
     public PostType PostType { get; set; }
