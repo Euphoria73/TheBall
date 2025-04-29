@@ -6,7 +6,7 @@ using TheBallContracts.Infrastructure;
 
 namespace TheBallContracts.DataModels;
 
-public class SaleDataModel(string id, string workerId, string? buyerId, double sum, DiscountType discountType, double discount, bool isCancel, List<SaleGiftDataModel> gifts) : IValidation
+public class SaleDataModel(string id, string workerId, string? buyerId, double sum, DiscountType discountType, double discount, bool isCancel, List<SaleGiftDataModel> saleGifts) : IValidation
 {
     public string Id { get; private set; } = id;
 
@@ -24,7 +24,7 @@ public class SaleDataModel(string id, string workerId, string? buyerId, double s
 
     public bool IsCancel { get; private set; } = isCancel;
 
-    public List<SaleGiftDataModel> Gifts { get; private set; } = gifts;
+    public List<SaleGiftDataModel> Gifts { get; private set; } = saleGifts;
 
     public void Validate()
     {

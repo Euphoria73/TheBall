@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TheBallBuisnessLogic\TheBallBuisnessLogic.csproj" />
     <ProjectReference Include="..\TheBallContracts\TheBallContracts\TheBallContracts.csproj" />
+    <ProjectReference Include="..\TheBallContracts\TheBallDatabase\TheBallDatabase.csproj" />
   </ItemGroup>
 
   <ItemGroup>

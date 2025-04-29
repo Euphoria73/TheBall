@@ -1,6 +1,7 @@
 ﻿
 namespace TheBallContracts.Exceptions;
 
-public class StorageException(Exception ex) : Exception($"Error while working in storage: {ex.Message}", ex)
+public class StorageException : Exception
 {
+    public StorageException(Exception ex) : base($"Error while working in storage: {ex.Message}", ex) { }
 }

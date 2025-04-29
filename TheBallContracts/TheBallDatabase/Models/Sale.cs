@@ -7,7 +7,7 @@ namespace TheBallDatabase.Models;
 
 internal class Sale
 {
-    public required string Id { get; set; }
+    public string Id { get; set; } = Guid.NewGuid().ToString();
 
     public required string WorkerId { get; set; }
 
