@@ -1,19 +1,14 @@
-﻿
-
-using System.Diagnostics;
-using System.Xml.Linq;
-using TheBallContracts.Enums;
-using TheBallContracts.Exceptions;
+﻿using TheBallContracts.Exceptions;
 using TheBallContracts.Extensions;
 using TheBallContracts.Infrastructure;
 
 namespace TheBallContracts.DataModels;
 
-public class SalaryDataModel(string workerId, DateTime salaryDate, double salary) : IValidation
+public class SalaryDataModel(string workerId, DateTime salaryDate, double workerSalary) : IValidation
 {
     public string WorkerId { get; private set; } = workerId;
     public DateTime SalaryDate { get; private set; } = salaryDate;
-    public double Salary { get; private set; } = salary;
+    public double Salary { get; private set; } = workerSalary;
 
     public void Validate()
     {

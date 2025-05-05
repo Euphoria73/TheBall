@@ -98,7 +98,7 @@ internal class GiftStorageContract : IGiftStorageContract
             _dbContext.ChangeTracker.Clear();
             throw new ElementExistsException("Id", giftDataModel.Id);
         }
-        catch (DbUpdateException ex) when (ex.InnerException is PostgresException { ConstraintName: "IX_Gifts_GiftName_IsDeleted" })
+        catch (DbUpdateException ex) when (ex.InnerException is PostgresException { ConstraintName: "IX_Gifts_Name_IsDeleted" })
         {
             _dbContext.ChangeTracker.Clear();
             throw new ElementExistsException("GiftsName", giftDataModel.Name);
@@ -153,7 +153,7 @@ internal class GiftStorageContract : IGiftStorageContract
                 throw;
             }
         }
-        catch (DbUpdateException ex) when (ex.InnerException is PostgresException { ConstraintName: "IX_Products_ProductName_IsDeleted" })
+        catch (DbUpdateException ex) when (ex.InnerException is PostgresException { ConstraintName: "IX_Gifts_Name_IsDeleted" })
         {
             _dbContext.ChangeTracker.Clear();
             throw new ElementExistsException("ProductName", giftDataModel.Name);

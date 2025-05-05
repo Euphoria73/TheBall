@@ -46,7 +46,7 @@ namespace TheBallDatabase.Implementations
         {
             try
             {
-                return _mapper.Map<PostDataModel>(_dbContext.Posts.FirstOrDefault(x => x.Name == name && x.IsActual));
+                return _mapper.Map<PostDataModel>(_dbContext.Posts.FirstOrDefault(x => x.PostName == name && x.IsActual));
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@ namespace TheBallDatabase.Implementations
             catch (DbUpdateException ex) when (ex.InnerException is PostgresException { ConstraintName: "IX_Posts_PostName_IsActual" })
             {
                 _dbContext.ChangeTracker.Clear();
-                throw new ElementExistsException("PostName", postDataModel.Name);
+                throw new ElementExistsException("PostName", postDataModel.PostName);
             }
             catch (DbUpdateException ex) when (ex.InnerException is PostgresException { ConstraintName: "IX_Posts_PostId_IsActual" })
             {
@@ -172,7 +172,7 @@ namespace TheBallDatabase.Implementations
             catch (DbUpdateException ex) when (ex.InnerException is PostgresException { ConstraintName: "IX_Posts_PostName_IsActual" })
             {
                 _dbContext.ChangeTracker.Clear();
-                throw new ElementExistsException("PostName", postDataModel.Name);
+                throw new ElementExistsException("PostName", postDataModel.PostName);
             }
             catch (Exception ex) when (ex is ElementDeletedException || ex is ElementNotFoundException)
             {

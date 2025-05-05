@@ -10,7 +10,7 @@ internal class TheBallDbContext(IConfigurationDatabase configurationDatabase) : 
     private readonly IConfigurationDatabase _configurationDatabase = configurationDatabase;
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_configurationDatabase?.ConnectionString, o => o.SetPostgresVersion(12, 2));
+        optionsBuilder.UseNpgsql(_configurationDatabase?.ConnectionString, o => o.SetPostgresVersion(16, 2));
         base.OnConfiguring(optionsBuilder);
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -19,10 +19,10 @@ internal class TheBallDbContext(IConfigurationDatabase configurationDatabase) : 
 
         modelBuilder.Entity<Buyer>().HasIndex(x => x.PhoneNumber).IsUnique();
 
-        modelBuilder.Entity<Manufacturer>().HasIndex(x => x.Name).IsUnique();
+        modelBuilder.Entity<Manufacturer>().HasIndex(x => x.ManufacturerName).IsUnique();
 
         modelBuilder.Entity<Post>()
-            .HasIndex(x => new { x.Name, x.IsActual })
+            .HasIndex(x => new { x.PostName, x.IsActual })
             .IsUnique()
             .HasFilter($"\"{nameof(Post.IsActual)}\" = TRUE");
 

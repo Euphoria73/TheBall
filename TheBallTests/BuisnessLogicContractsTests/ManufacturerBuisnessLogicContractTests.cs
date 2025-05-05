@@ -101,7 +101,7 @@ internal class ManufacturerBuisnessLogicContractTests
         var element = _manufacturerBusinessLogicContract.GetManufacturerByData(manufacturerName);
         //Assert
         Assert.That(element, Is.Not.Null);
-        Assert.That(element.Name, Is.EqualTo(manufacturerName));
+        Assert.That(element.ManufacturerName, Is.EqualTo(manufacturerName));
         _manufacturerStorageContract.Verify(x => x.GetElementByName(It.IsAny<string>()), Times.Once);
     }
 
@@ -116,7 +116,7 @@ internal class ManufacturerBuisnessLogicContractTests
         var element = _manufacturerBusinessLogicContract.GetManufacturerByData(manufacturerOldName);
         //Assert
         Assert.That(element, Is.Not.Null);
-        Assert.That(element.PrevName, Is.EqualTo(manufacturerOldName));
+        Assert.That(element.PrevManufacturerName, Is.EqualTo(manufacturerOldName));
         _manufacturerStorageContract.Verify(x => x.GetElementByName(It.IsAny<string>()), Times.Once);
         _manufacturerStorageContract.Verify(x => x.GetElementByOldName(It.IsAny<string>()), Times.Once);
     }
@@ -186,7 +186,7 @@ internal class ManufacturerBuisnessLogicContractTests
         _manufacturerStorageContract.Setup(x => x.AddElement(It.IsAny<ManufacturerDataModel>()))
             .Callback((ManufacturerDataModel x) =>
             {
-                flag = x.Id == record.Id && x.Name == record.Name;
+                flag = x.Id == record.Id && x.ManufacturerName == record.ManufacturerName;
             });
         //Act
         _manufacturerBusinessLogicContract.InsertManufacturer(record);
@@ -240,7 +240,7 @@ internal class ManufacturerBuisnessLogicContractTests
         _manufacturerStorageContract.Setup(x => x.UpdElement(It.IsAny<ManufacturerDataModel>()))
             .Callback((ManufacturerDataModel x) =>
             {
-                flag = x.Id == record.Id && x.Name == record.Name;
+                flag = x.Id == record.Id && x.ManufacturerName == record.ManufacturerName;
             });
         //Act
         _manufacturerBusinessLogicContract.UpdateManufacturer(record);

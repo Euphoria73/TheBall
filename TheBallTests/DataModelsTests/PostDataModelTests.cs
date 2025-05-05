@@ -64,7 +64,7 @@ internal class PostDataModelTests
         Assert.Multiple(() =>
         {
             Assert.That(post.Id, Is.EqualTo(postId));
-            Assert.That(post.Name, Is.EqualTo(postName));
+            Assert.That(post.PostName, Is.EqualTo(postName));
             Assert.That(post.PostType, Is.EqualTo(postType));
             Assert.That(post.Salary, Is.EqualTo(salary));
             Assert.That(post.IsActual, Is.EqualTo(isActual));

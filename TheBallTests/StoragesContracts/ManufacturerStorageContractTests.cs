@@ -1,10 +1,8 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
-using TheBallContracts.DataModels;
+﻿using TheBallContracts.DataModels;
 using TheBallContracts.Exceptions;
 using TheBallDatabase.Implementations;
 using TheBallDatabase.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace TheBallTests.StoragesContracts;
 
@@ -64,7 +62,7 @@ internal class ManufacturerStorageContractTests : BaseStorageContractTest
     public void Try_GetElementByName_WhenHaveRecord_Test()
     {
         var manufacturer = InsertManufacturerToDatabaseAndReturn(Guid.NewGuid().ToString());
-        AssertElement(_manufacturerStorageContract.GetElementByName(manufacturer.Name), manufacturer);
+        AssertElement(_manufacturerStorageContract.GetElementByName(manufacturer.ManufacturerName), manufacturer);
     }
 
     [Test]
@@ -78,8 +76,8 @@ internal class ManufacturerStorageContractTests : BaseStorageContractTest
     public void Try_GetElementByOldName_WhenHaveRecord_Test()
     {
         var manufacturer = InsertManufacturerToDatabaseAndReturn(Guid.NewGuid().ToString());
-        AssertElement(_manufacturerStorageContract.GetElementByOldName(manufacturer.PrevName!), manufacturer);
-        AssertElement(_manufacturerStorageContract.GetElementByOldName(manufacturer.PrevPrevName!), manufacturer);
+        AssertElement(_manufacturerStorageContract.GetElementByOldName(manufacturer.PrevManufacturerName!), manufacturer);
+        AssertElement(_manufacturerStorageContract.GetElementByOldName(manufacturer.PrevPrevManufacturerName!), manufacturer);
     }
 
     [Test]
@@ -109,7 +107,7 @@ internal class ManufacturerStorageContractTests : BaseStorageContractTest
     public void Try_AddElement_WhenHaveRecordWithSameManufacturerName_Test()
     {
         var manufacturer = CreateModel(Guid.NewGuid().ToString(), "name unique");
-        InsertManufacturerToDatabaseAndReturn(Guid.NewGuid().ToString(), manufacturerName: manufacturer.Name);
+        InsertManufacturerToDatabaseAndReturn(Guid.NewGuid().ToString(), manufacturerName: manufacturer.ManufacturerName);
         Assert.That(() => _manufacturerStorageContract.AddElement(manufacturer), Throws.TypeOf<ElementExistsException>());
     }
 
@@ -117,7 +115,7 @@ internal class ManufacturerStorageContractTests : BaseStorageContractTest
     public void Try_UpdElement_Test()
     {
         var manufacturer = CreateModel(Guid.NewGuid().ToString(), "name new", "test", "prev");
-        InsertManufacturerToDatabaseAndReturn(manufacturer.Id, manufacturerName: manufacturer.PrevName!, prevManufacturerName: manufacturer.PrevPrevName!);
+        InsertManufacturerToDatabaseAndReturn(manufacturer.Id, manufacturerName: manufacturer.PrevManufacturerName!, prevManufacturerName: manufacturer.PrevPrevManufacturerName!);
         _manufacturerStorageContract.UpdElement(CreateModel(manufacturer.Id, "name new", "some name", "some name"));
         AssertElement(GetManufacturerFromDatabase(manufacturer.Id), manufacturer);
     }
@@ -126,7 +124,7 @@ internal class ManufacturerStorageContractTests : BaseStorageContractTest
     public void Try_UpdElement_WhenNoChangeManufacturerName_Test()
     {
         var manufacturer = CreateModel(Guid.NewGuid().ToString(), "name new", "test", "prev");
-        InsertManufacturerToDatabaseAndReturn(manufacturer.Id, manufacturerName: manufacturer.Name!, prevManufacturerName: manufacturer.PrevName!, prevPrevManufacturerName: manufacturer.PrevPrevName!);
+        InsertManufacturerToDatabaseAndReturn(manufacturer.Id, manufacturerName: manufacturer.ManufacturerName!, prevManufacturerName: manufacturer.PrevManufacturerName!, prevPrevManufacturerName: manufacturer.PrevPrevManufacturerName!);
         _manufacturerStorageContract.UpdElement(manufacturer);
         AssertElement(GetManufacturerFromDatabase(manufacturer.Id), manufacturer);
     }
@@ -142,7 +140,7 @@ internal class ManufacturerStorageContractTests : BaseStorageContractTest
     {
         var manufacturer = CreateModel(Guid.NewGuid().ToString(), "name unique");
         InsertManufacturerToDatabaseAndReturn(manufacturer.Id, manufacturerName: "some name");
-        InsertManufacturerToDatabaseAndReturn(Guid.NewGuid().ToString(), manufacturerName: manufacturer.Name);
+        InsertManufacturerToDatabaseAndReturn(Guid.NewGuid().ToString(), manufacturerName: manufacturer.ManufacturerName);
         Assert.That(() => _manufacturerStorageContract.UpdElement(manufacturer), Throws.TypeOf<ElementExistsException>());
     }
 
@@ -172,7 +170,7 @@ internal class ManufacturerStorageContractTests : BaseStorageContractTest
 
     private Manufacturer InsertManufacturerToDatabaseAndReturn(string id, string manufacturerName = "test", string prevManufacturerName = "prev", string prevPrevManufacturerName = "prevPrev")
     {
-        var manufacturer = new Manufacturer() { Id = id, Name = manufacturerName, PrevName = prevManufacturerName, PrevPrevName = prevPrevManufacturerName };
+        var manufacturer = new Manufacturer() { Id = id, ManufacturerName = manufacturerName, PrevManufacturerName = prevManufacturerName, PrevPrevManufacturerName = prevPrevManufacturerName };
         TheBallDbContext.Manufacturers.Add(manufacturer);
         TheBallDbContext.SaveChanges();
         return manufacturer;
@@ -184,9 +182,9 @@ internal class ManufacturerStorageContractTests : BaseStorageContractTest
         Assert.Multiple(() =>
         {
             Assert.That(actual.Id, Is.EqualTo(expected.Id));
-            Assert.That(actual.Name, Is.EqualTo(expected.Name));
-            Assert.That(actual.PrevName, Is.EqualTo(expected.PrevName));
-            Assert.That(actual.PrevPrevName, Is.EqualTo(expected.PrevPrevName));
+            Assert.That(actual.ManufacturerName, Is.EqualTo(expected.ManufacturerName));
+            Assert.That(actual.PrevManufacturerName, Is.EqualTo(expected.PrevManufacturerName));
+            Assert.That(actual.PrevPrevManufacturerName, Is.EqualTo(expected.PrevPrevManufacturerName));
         });
     }
 
@@ -201,9 +199,9 @@ internal class ManufacturerStorageContractTests : BaseStorageContractTest
         Assert.Multiple(() =>
         {
             Assert.That(actual.Id, Is.EqualTo(expected.Id));
-            Assert.That(actual.Name, Is.EqualTo(expected.Name));
-            Assert.That(actual.PrevName, Is.EqualTo(expected.PrevName));
-            Assert.That(actual.PrevPrevName, Is.EqualTo(expected.PrevPrevName));
+            Assert.That(actual.ManufacturerName, Is.EqualTo(expected.ManufacturerName));
+            Assert.That(actual.PrevManufacturerName, Is.EqualTo(expected.PrevManufacturerName));
+            Assert.That(actual.PrevPrevManufacturerName, Is.EqualTo(expected.PrevPrevManufacturerName));
         });
     }
 }

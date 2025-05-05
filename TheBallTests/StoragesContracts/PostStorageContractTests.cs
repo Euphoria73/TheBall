@@ -134,7 +134,7 @@ internal class PostStorageContractTests : BaseStorageContractTest
     public void Try_GetElementByName_WhenHaveRecord_Test()
     {
         var post = InsertPostToDatabaseAndReturn(Guid.NewGuid().ToString());
-        AssertElement(_postStorageContract.GetElementByName(post.Name), post);
+        AssertElement(_postStorageContract.GetElementByName(post.PostName), post);
     }
 
     [Test]
@@ -148,7 +148,7 @@ internal class PostStorageContractTests : BaseStorageContractTest
     public void Try_GetElementByName_WhenRecordHasDeleted_Test()
     {
         var post = InsertPostToDatabaseAndReturn(Guid.NewGuid().ToString(), isActual: false);
-        Assert.That(() => _postStorageContract.GetElementById(post.Name), Is.Null);
+        Assert.That(() => _postStorageContract.GetElementById(post.PostName), Is.Null);
     }
 
     [Test]
@@ -171,7 +171,7 @@ internal class PostStorageContractTests : BaseStorageContractTest
     public void Try_AddElement_WhenHaveRecordWithSameName_Test()
     {
         var post = CreateModel(Guid.NewGuid().ToString(), "name unique", isActual: true);
-        InsertPostToDatabaseAndReturn(Guid.NewGuid().ToString(), postName: post.Name, isActual: true);
+        InsertPostToDatabaseAndReturn(Guid.NewGuid().ToString(), postName: post.PostName, isActual: true);
         Assert.That(() => _postStorageContract.AddElement(post), Throws.TypeOf<ElementExistsException>());
     }
 
@@ -215,7 +215,7 @@ internal class PostStorageContractTests : BaseStorageContractTest
     {
         var post = CreateModel(Guid.NewGuid().ToString(), "New Name");
         InsertPostToDatabaseAndReturn(post.Id, postName: "name");
-        InsertPostToDatabaseAndReturn(Guid.NewGuid().ToString(), postName: post.Name);
+        InsertPostToDatabaseAndReturn(Guid.NewGuid().ToString(), postName: post.PostName);
         Assert.That(() => _postStorageContract.UpdElement(post), Throws.TypeOf<ElementExistsException>());
     }
 
@@ -279,9 +279,9 @@ internal class PostStorageContractTests : BaseStorageContractTest
         Assert.That(() => _postStorageContract.ResElement(post.PostId), Throws.Nothing);
     }
 
-    private Post InsertPostToDatabaseAndReturn(string id, string postName = "test", PostType postType = PostType.Assistant, double salary = 10, bool isActual = true, DateTime? changeDate = null)
+    private Post InsertPostToDatabaseAndReturn(string id, string postName = "test", PostType postType = PostType.Supervisor, double salary = 10, bool isActual = true, DateTime? changeDate = null)
     {
-        var post = new Post() { Id = Guid.NewGuid().ToString(), PostId = id, Name = postName, PostType = postType, Salary = salary, IsActual = isActual, ChangeDate = changeDate ?? DateTime.UtcNow };
+        var post = new Post() { Id = Guid.NewGuid().ToString(), PostId = id, PostName = postName, PostType = postType, Salary = salary, IsActual = isActual, ChangeDate = changeDate ?? DateTime.UtcNow };
         TheBallDbContext.Posts.Add(post);
         TheBallDbContext.SaveChanges();
         return post;
@@ -293,14 +293,14 @@ internal class PostStorageContractTests : BaseStorageContractTest
         Assert.Multiple(() =>
         {
             Assert.That(actual.Id, Is.EqualTo(expected.PostId));
-            Assert.That(actual.Name, Is.EqualTo(expected.Name));
+            Assert.That(actual.PostName, Is.EqualTo(expected.PostName));
             Assert.That(actual.PostType, Is.EqualTo(expected.PostType));
             Assert.That(actual.Salary, Is.EqualTo(expected.Salary));
             Assert.That(actual.IsActual, Is.EqualTo(expected.IsActual));
         });
     }
 
-    private static PostDataModel CreateModel(string postId, string postName = "test", PostType postType = PostType.Assistant, double salary = 10, bool isActual = false, DateTime? changeDate = null)
+    private static PostDataModel CreateModel(string postId, string postName = "test", PostType postType = PostType.Supervisor, double salary = 10, bool isActual = false, DateTime? changeDate = null)
         => new(postId, postName, postType, salary, isActual, changeDate ?? DateTime.UtcNow);
 
     private Post? GetPostFromDatabaseByPostId(string id) => TheBallDbContext.Posts.Where(x => x.PostId == id).OrderByDescending(x => x.ChangeDate).FirstOrDefault();
@@ -311,7 +311,7 @@ internal class PostStorageContractTests : BaseStorageContractTest
         Assert.Multiple(() =>
         {
             Assert.That(actual.PostId, Is.EqualTo(expected.Id));
-            Assert.That(actual.Name, Is.EqualTo(expected.Name));
+            Assert.That(actual.PostName, Is.EqualTo(expected.PostName));
             Assert.That(actual.PostType, Is.EqualTo(expected.PostType));
             Assert.That(actual.Salary, Is.EqualTo(expected.Salary));
             Assert.That(actual.IsActual, Is.EqualTo(expected.IsActual));

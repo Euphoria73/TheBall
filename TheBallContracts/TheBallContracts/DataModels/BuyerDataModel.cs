@@ -5,11 +5,11 @@ using TheBallContracts.Infrastructure;
 
 namespace TheBallContracts.DataModels;
 
-public class BuyerDataModel(string id, string fio, string phoneNuber, double discountSize) : IValidation
+public class BuyerDataModel(string id, string fio, string phoneNumber, double discountSize) : IValidation
 {
     public string Id { get; private set; } = id;
     public string FIO { get; private set; } = fio;
-    public string PhoneNumber { get; private set; } = phoneNuber;
+    public string PhoneNumber { get; private set; } = phoneNumber;
     public double DiscountSize { get; private set; } = discountSize;
 
     public void Validate()

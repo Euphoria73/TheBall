@@ -175,7 +175,7 @@ internal class BuyerStorageContractTests : BaseStorageContractTest
         Assert.That(() => _buyerStorageContract.DelElement(Guid.NewGuid().ToString()), Throws.TypeOf<ElementNotFoundException>());
     }
 
-    private Buyer InsertBuyerToDatabaseAndReturn(string id, string fio = "test", string phoneNumber = "+7-777-777-77-77", double discountSize = 10)
+    private Buyer InsertBuyerToDatabaseAndReturn(string id, string fio = "somefio", string phoneNumber = "+7-777-777-77-77", double discountSize = 15)
     {
         var buyer = new Buyer() { Id = id, FIO = fio, PhoneNumber = phoneNumber, DiscountSize = discountSize };
         TheBallDbContext.Buyers.Add(buyer);

@@ -1,9 +1,15 @@
 ﻿
 namespace TheBallContracts.Exceptions;
 
-public class ElementExistsException(string paramName, string paramValue) : Exception($"There is already an element with value{paramValue} of parameter {paramName}")
+public class ElementExistsException : Exception
 {
-    public string ParamName { get; private set; } = paramName;
+    public string ParamName { get; private set; }
 
-    public string ParamValue { get; private set; } = paramValue;
+    public string ParamValue { get; private set; }
+
+    public ElementExistsException(string paramName, string paramValue) : base($"There is already an element with value{paramValue} of parameter {paramName}")
+    {
+        ParamName = paramName;
+        ParamValue = paramValue;
+    }
 }

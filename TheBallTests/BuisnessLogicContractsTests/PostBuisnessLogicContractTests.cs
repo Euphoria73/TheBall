@@ -183,7 +183,7 @@ internal class PostBusinessLogicContractTests
         var element = _postBusinessLogicContract.GetPostByData(postName);
         //Assert
         Assert.That(element, Is.Not.Null);
-        Assert.That(element.Name, Is.EqualTo(postName));
+        Assert.That(element.PostName, Is.EqualTo(postName));
         _postStorageContract.Verify(x => x.GetElementByName(It.IsAny<string>()), Times.Once);
     }
 
@@ -237,7 +237,7 @@ internal class PostBusinessLogicContractTests
         _postStorageContract.Setup(x => x.AddElement(It.IsAny<PostDataModel>()))
             .Callback((PostDataModel x) =>
             {
-                flag = x.Id == record.Id && x.Name == record.Name && x.PostType == record.PostType && x.Salary == record.Salary &&
+                flag = x.Id == record.Id && x.PostName == record.PostName && x.PostType == record.PostType && x.Salary == record.Salary &&
                     x.ChangeDate == record.ChangeDate;
             });
         //Act
@@ -292,7 +292,7 @@ internal class PostBusinessLogicContractTests
         _postStorageContract.Setup(x => x.UpdElement(It.IsAny<PostDataModel>()))
             .Callback((PostDataModel x) =>
             {
-                flag = x.Id == record.Id && x.Name == record.Name && x.PostType == record.PostType && x.Salary == record.Salary &&
+                flag = x.Id == record.Id && x.PostName == record.PostName && x.PostType == record.PostType && x.Salary == record.Salary &&
                     x.ChangeDate == record.ChangeDate;
             });
         //Act

@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using TheBallContracts.DataModels;
@@ -24,6 +23,18 @@ internal class BuyerStorageContract : IBuyerStorageContract
         });
         _mapper = new Mapper(config);
     }
+    public BuyerDataModel? GetElementById(string id)
+    {
+        try
+        {
+            return _mapper.Map<BuyerDataModel>(GetBuyerById(id));
+        }
+        catch (Exception ex)
+        {
+            _dbContext.ChangeTracker.Clear();
+            throw new StorageException(ex);
+        }
+    }
 
     public BuyerDataModel? GetElementByFIO(string fio)
     {
@@ -38,18 +49,6 @@ internal class BuyerStorageContract : IBuyerStorageContract
         }
     }
 
-    public BuyerDataModel? GetElementById(string id)
-    {
-        try
-        {
-            return _mapper.Map<BuyerDataModel>(GetBuyerById(id));
-        }
-        catch (Exception ex)
-        {
-            _dbContext.ChangeTracker.Clear();
-            throw new StorageException(ex);
-        }
-    }
 
     public BuyerDataModel? GetElementByPhoneNumber(string phoneNumber)
     {

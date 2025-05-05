@@ -41,7 +41,7 @@ internal class ManufacturerStorageContract : IManufacturerStorageContract
     {
         try
         {
-            return _mapper.Map<ManufacturerDataModel>(_dbContext.Manufacturers.FirstOrDefault(x => x.Name == name));
+            return _mapper.Map<ManufacturerDataModel>(_dbContext.Manufacturers.FirstOrDefault(x => x.ManufacturerName == name));
         }
         catch (Exception ex)
         {
@@ -54,8 +54,8 @@ internal class ManufacturerStorageContract : IManufacturerStorageContract
     {
         try
         {
-            return _mapper.Map<ManufacturerDataModel>(_dbContext.Manufacturers.FirstOrDefault(x => x.PrevName == name ||
-                x.PrevPrevName == name));
+            return _mapper.Map<ManufacturerDataModel>(_dbContext.Manufacturers.FirstOrDefault(x => x.PrevManufacturerName == name ||
+                x.PrevPrevManufacturerName == name));
         }
         catch (Exception ex)
         {
@@ -92,7 +92,7 @@ internal class ManufacturerStorageContract : IManufacturerStorageContract
         catch (DbUpdateException ex) when (ex.InnerException is PostgresException { ConstraintName: "IX_Manufacturers_ManufacturerName" })
         {
             _dbContext.ChangeTracker.Clear();
-            throw new ElementExistsException("ManufacturerName", manufacturerDataModel.Name);
+            throw new ElementExistsException("Name", manufacturerDataModel.ManufacturerName);
         }
         catch (Exception ex)
         {
@@ -106,11 +106,11 @@ internal class ManufacturerStorageContract : IManufacturerStorageContract
         try
         {
             var element = GetManufacturerById(manufacturerDataModel.Id) ?? throw new ElementNotFoundException(manufacturerDataModel.Id);
-            if (element.Name != manufacturerDataModel.Name)
+            if (element.ManufacturerName != manufacturerDataModel.ManufacturerName)
             {
-                element.PrevPrevName = element.PrevName;
-                element.PrevName = element.Name;
-                element.Name = manufacturerDataModel.Name;
+                element.PrevPrevManufacturerName = element.PrevManufacturerName;
+                element.PrevManufacturerName = element.ManufacturerName;
+                element.ManufacturerName = manufacturerDataModel.ManufacturerName;
             }
             _dbContext.Manufacturers.Update(element);
             _dbContext.SaveChanges();
@@ -123,7 +123,7 @@ internal class ManufacturerStorageContract : IManufacturerStorageContract
         catch (DbUpdateException ex) when (ex.InnerException is PostgresException { ConstraintName: "IX_Manufacturers_ManufacturerName" })
         {
             _dbContext.ChangeTracker.Clear();
-            throw new ElementExistsException("ManufacturerName", manufacturerDataModel.Name);
+            throw new ElementExistsException("Name", manufacturerDataModel.ManufacturerName);
         }
         catch (Exception ex)
         {

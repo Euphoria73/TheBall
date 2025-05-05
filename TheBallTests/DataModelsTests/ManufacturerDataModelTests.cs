@@ -37,7 +37,7 @@ internal class ManufacturerDataModelTests
     public void AllFieldsIsCorrectTest()
     {
         var manufacturerId = Guid.NewGuid().ToString();
-        var manufacturerName = "name";
+        var manufacturerName = "manufacturerName";
         var prevManufacturerName = "prevManufacturerName";
         var prevPrevManufacturerName = "prevPrevManufacturerName";
         var manufacturer = CreateDataModel(manufacturerId, manufacturerName, prevManufacturerName, prevPrevManufacturerName);
@@ -45,9 +45,9 @@ internal class ManufacturerDataModelTests
         Assert.Multiple(() =>
         {
             Assert.That(manufacturer.Id, Is.EqualTo(manufacturerId));
-            Assert.That(manufacturer.Name, Is.EqualTo(manufacturerName));
-            Assert.That(manufacturer.PrevName, Is.EqualTo(prevManufacturerName));
-            Assert.That(manufacturer.PrevPrevName, Is.EqualTo(prevPrevManufacturerName));
+            Assert.That(manufacturer.ManufacturerName, Is.EqualTo(manufacturerName));
+            Assert.That(manufacturer.PrevManufacturerName, Is.EqualTo(prevManufacturerName));
+            Assert.That(manufacturer.PrevPrevManufacturerName, Is.EqualTo(prevPrevManufacturerName));
         });
     }
 

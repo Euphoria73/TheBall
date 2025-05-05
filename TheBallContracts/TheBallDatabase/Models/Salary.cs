@@ -1,6 +1,4 @@
-﻿
-
-namespace TheBallDatabase.Models;
+﻿namespace TheBallDatabase.Models;
 
 internal class Salary
 {

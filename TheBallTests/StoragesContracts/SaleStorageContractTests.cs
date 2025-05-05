@@ -1,7 +1,4 @@
-﻿
-
-using static NUnit.Framework.Internal.OSPlatform;
-using TheBallContracts.DataModels;
+﻿using TheBallContracts.DataModels;
 using TheBallContracts.Enums;
 using TheBallContracts.Exceptions;
 using TheBallDatabase.Implementations;
@@ -212,7 +209,7 @@ internal class SaleStorageContractTests : BaseStorageContractTest
 
     private Manufacturer InsertManufacturerToDatabaseAndReturn()
     {
-        var manufacrurer = new Manufacturer() { Id = Guid.NewGuid().ToString(), Name = "name" };
+        var manufacrurer = new Manufacturer() { Id = Guid.NewGuid().ToString(), ManufacturerName = "name" };
         TheBallDbContext.Manufacturers.Add(manufacrurer);
         TheBallDbContext.SaveChanges();
         return manufacrurer;

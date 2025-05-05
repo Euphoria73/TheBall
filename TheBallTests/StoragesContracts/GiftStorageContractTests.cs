@@ -1,6 +1,4 @@
-﻿
-
-using TheBallContracts.Exceptions;
+﻿using TheBallContracts.Exceptions;
 using TheBallDatabase.Models;
 using Microsoft.EntityFrameworkCore;
 using TheBallDatabase.Implementations;
@@ -297,7 +295,7 @@ internal class GiftStorageContractTests : BaseStorageContractTest
 
     private Manufacturer InsertManufacturerToDatabaseAndReturn(string manufacturerName = "name")
     {
-        var manufacrurer = new Manufacturer() { Id = Guid.NewGuid().ToString(), Name = manufacturerName };
+        var manufacrurer = new Manufacturer() { Id = Guid.NewGuid().ToString(), ManufacturerName = manufacturerName };
         TheBallDbContext.Manufacturers.Add(manufacrurer);
         TheBallDbContext.SaveChanges();
         return manufacrurer;
